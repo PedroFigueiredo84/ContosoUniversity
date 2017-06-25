@@ -5,36 +5,33 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ContosoUniversity.Models
 {
-    public class Student
+    public class Instructor
     {
         public int ID { get; set; }
+
         [Required]
-        [StringLength(50)]
-        [Column("Apelido")]
         [Display(Name = "Apelido")]
+        [StringLength(50)]
         public string LastName { get; set; }
+
         [Required]
-        [StringLength(50, ErrorMessage = "First name cannot be longer than 50 characters.")]
-        [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$", ErrorMessage = "Tem de ser iniciado por uma maiuscula") ]
         [Column("Nome")]
         [Display(Name = "Nome")]
+        [StringLength(50)]
         public string FirstMidName { get; set; }
-        [Required]
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [Column("Matricula")]
-        [Display(Name = "Matricula")]
-        public DateTime EnrollmentDate { get; set; }
+        [Display(Name = "Dt Contrato")]
+        public DateTime HireDate { get; set; }
 
-        [Display(Name = "Full Name")]
+        [Display(Name = "NomeCompleto")]
         public string FullName
         {
-            get
-            {
-                return LastName + ", " + FirstMidName;
-            }
+            get { return LastName + ", " + FirstMidName; }
         }
 
-        public virtual ICollection<Enrollment> Enrollments { get; set; }
+        public virtual ICollection<Course> Courses { get; set; }
+        public virtual OfficeAssignment OfficeAssignment { get; set; }
     }
 }
